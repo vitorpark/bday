@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Do you know Vitor?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #87CEFA;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .visible {
+      display: flex;
+    }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #333;
+      transition: all 0.2s ease-in-out;
+    }
+
+    #noButton:hover, #noButton2:hover {
+      position: absolute;
+    }
+
+    .final-screen {
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      padding-top: 20px;
+      box-sizing: border-box;
+    }
+
+    #bg-video {
+      width: auto;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+
+    .final-screen h1 {
+      margin-top: 10px;
+      color: white;
+      font-size: 2em;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px 20px;
+      border-radius: 10px;
+      z-index: 1;
+    }
+
+    #smallText {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75em;
+      font-style: italic;
+      z-index: 1;
+      max-width: 45%;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="screen1" class="screen visible">
+    <h1>Do you know Vitor?</h1>
+    <div class="button-container">
+      <button onclick="nextScreen('screen2')">Yes</button>
+      <button id="noButton" onmouseover="moveButton(this)">No</button>
+    </div>
+  </div>
+
+  <div id="screen2" class="screen">
+    <h1>Do you find him the coolest and most amazing person on Earth?</h1>
+    <div class="button-container">
+      <button onclick="nextScreen('screen3')">Yes</button>
+      <button id="noButton2" onmouseover="moveButton(this)">No</button>
+    </div>
+  </div>
+
+  <div id="screen3" class="screen">
+    <h1>Is today your birthday?</h1>
+    <div class="button-container">
+      <button onclick="nextScreen('screen4')">Yes</button>
+    </div>
+  </div>
+
+  <div id="screen4" class="screen">
+    <h1>Then...</h1>
+    <div class="button-container">
+      <button onclick="nextScreen('screen5'); playVideo();">Continue</button>
+    </div>
+  </div>
+
+  <div id="screen5" class="screen final-screen">
+    <video id="bg-video" autoplay loop>
+      <source src="fundo.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <h1>Happy Birthday Mette! Wish you the best!!🎉</h1>
+    <div id="smallText">(you are one of the coolest and most amazing people i know!)</div>
+  </div>
+
+  <script>
+    function moveButton(button) {
+      const x = Math.floor(Math.random() * (window.innerWidth - 100));
+      const y = Math.floor(Math.random() * (window.innerHeight - 50));
+      button.style.position = 'absolute';
+      button.style.left = x + 'px';
+      button.style.top = y + 'px';
+    }
+
+    function nextScreen(id) {
+      const screens = document.querySelectorAll('.screen');
+      screens.forEach(screen => screen.classList.remove('visible'));
+      document.getElementById(id).classList.add('visible');
+    }
+
+    function playVideo() {
+      const video = document.getElementById('bg-video');
+      video.play().catch(e => console.log("Autoplay error:", e));
+    }
+  </script>
+
+</body>
+</html>
